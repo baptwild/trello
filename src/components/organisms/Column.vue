@@ -2,7 +2,21 @@
   <div class="column">
     <ColumnTitle :modelValue="title" @update:modelValue="updateColumnTitle" />
     <DeleteButton @click="deleteColumn" />
-    <button @click="addCard">+ Ajouter une carte</button>
+
+    <form class="add-card-form" @submit.prevent="submitCard">
+      <input
+          type="text"
+          v-model="newCardTitle"
+          placeholder="Titre de la carte"
+          required
+      />
+      <textarea
+          v-model="newCardDescription"
+          placeholder="Description"
+          rows="2"
+      />
+      <button type="submit">+ Ajouter une carte</button>
+    </form>
 
     <draggable
         :list="cards"
@@ -23,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import ColumnTitle from '../atoms/ColumnTitle.vue';
 import DeleteButton from '../atoms/DeleteButton.vue';
 import Card from '../molecules/Card.vue';
@@ -46,30 +60,57 @@ export default defineComponent({
     }
   },
   emits: ['update-column-title', 'add-card', 'remove-card', 'update-cards', 'remove-column'],
-  methods: {
-    updateColumnTitle(newTitle: string) {
-      this.$emit('update-column-title', { status: this.status, newTitle });
-    },
-    addCard() {
-      this.$emit('add-card', this.status);
-    },
-    removeCard(card: any) {
-      this.$emit('remove-card', { card });
-    },
-    updateCardTitle({ card, newTitle }: any) {
-      card.title = newTitle;
-    },
-    onDrag() {
-      // Mise à jour des statuts dans cette colonne après drop
-      this.cards.forEach(card => {
-        card.status = this.status;
+  setup(props, { emit }) {
+    const newCardTitle = ref('');
+    const newCardDescription = ref('');
+
+    const submitCard = () => {
+      if (!newCardTitle.value.trim()) return;
+
+      emit('add-card', {
+        title: newCardTitle.value,
+        description: newCardDescription.value,
+        status: props.status
       });
-      this.$emit('update-cards', this.status, [...this.cards]);
-    },
-    deleteColumn() {
-      this.$emit('remove-column', this.status);
-    },
-  },
+
+      newCardTitle.value = '';
+      newCardDescription.value = '';
+    };
+
+    const updateColumnTitle = (newTitle: string) => {
+      emit('update-column-title', { status: props.status, newTitle });
+    };
+
+    const removeCard = (card: any) => {
+      emit('remove-card', { card });
+    };
+
+    const updateCardTitle = ({ card, newTitle }: any) => {
+      card.title = newTitle;
+    };
+
+    const onDrag = () => {
+      props.cards.forEach(card => {
+        card.status = props.status;
+      });
+      emit('update-cards', props.status, [...props.cards]);
+    };
+
+    const deleteColumn = () => {
+      emit('remove-column', props.status);
+    };
+
+    return {
+      newCardTitle,
+      newCardDescription,
+      submitCard,
+      updateColumnTitle,
+      removeCard,
+      updateCardTitle,
+      onDrag,
+      deleteColumn
+    };
+  }
 });
 </script>
 
@@ -98,8 +139,23 @@ export default defineComponent({
   flex-grow: 1;
 }
 
-button {
+.add-card-form {
   margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.add-card-form input,
+.add-card-form textarea {
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  resize: none;
+}
+
+.add-card-form button {
   padding: 8px 12px;
   background-color: #3f83f8;
   color: white;
@@ -110,10 +166,7 @@ button {
   transition: background-color 0.2s;
 }
 
-button:hover {
+.add-card-form button:hover {
   background-color: #2563eb;
-}
-.delete-btn:hover {
-  background-color: #f87171;
 }
 </style>

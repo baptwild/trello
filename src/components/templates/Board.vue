@@ -62,23 +62,22 @@ export default defineComponent({
       this.columnList = this.columnList.filter(col => col.status !== status)
       this.cards = this.cards.filter(card => card.status !== status)
     },
-    addCard(status: string) {
+    addCard(payload: { title: string; description: string; status: string }) {
       this.cards.push({
         id: Date.now() + Math.random(),
-        title: "Nouvelle carte",
-        description: "",
-        deadline: "2025-12-31",
-        status: status
+        title: payload.title,
+        description: payload.description,
+        deadline: '2025-12-31',
+        status: payload.status,
       });
     },
+
     removeCard({ card }: { card: any }) {
       this.cards = this.cards.filter(c => c.id !== card.id)
     },
     updateCards(status: string, updatedCards: any[]) {
-      // Supprimer toutes les anciennes cartes de cette colonne
       this.cards = this.cards.filter(card => card.status !== status)
 
-      // Ajouter les nouvelles cartes avec le bon statut
       updatedCards.forEach(card => {
         card.status = status
         this.cards.push(card)
