@@ -1,6 +1,12 @@
-# Vue 3 + TypeScript + Vite
+# Mini Trello - Vue 3 + TypeScript + Vite
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Description
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
-# trello
+Ce projet est une **version simplifiée de Trello**, construite avec **Vue 3**, **TypeScript** et **Vite**. Il permet de gérer des tâches sous forme de **cartes** organisées en **colonnes**, chacune représentant un état d'avancement (ex : "To Do", "In Progress", "Done").
+
+### Fonctionnalités principales :
+- **Ajout de cartes** : Vous pouvez ajouter des tâches avec un **titre** et une **description**.
+- **Modification des dates de deadline** : Chaque carte peut avoir une **date limite** que vous pouvez modifier.
+- **Drag & Drop** : Vous pouvez déplacer les cartes entre les différentes colonnes, permettant ainsi de suivre l'évolution des tâches en un clin d'œil.
+- **Suppression de cartes et de colonnes** : Vous pouvez supprimer les cartes et les colonnes via un bouton de suppression intégré.
+
