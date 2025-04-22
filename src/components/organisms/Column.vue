@@ -75,14 +75,45 @@ export default defineComponent({
 
 <style scoped>
 .column {
-  width: 300px;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #f4f5f7;
-  margin-right: 20px;
+  width: 360px;
+  min-height: 100px;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.column:hover {
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
 }
 
 .card-list {
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+button {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background-color: #3f83f8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+.delete-btn:hover {
+  background-color: #f87171;
 }
 </style>

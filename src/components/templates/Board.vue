@@ -92,15 +92,31 @@ export default defineComponent({
 .board-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 20px;
+  align-items: center;
+  padding: 40px;
+  min-height: 100vh;
+  background: linear-gradient(145deg, #e8f0ff, #fdfdfe);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .board {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   width: 100%;
   overflow-x: auto;
-  padding-top: 10px;
+  padding: 20px 0;
+  justify-content: flex-start;
+}
+
+.board-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 20px;
+  background: #e0e7ff;
+  padding: 12px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.1);
 }
 </style>

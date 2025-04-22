@@ -37,31 +37,56 @@ const deleteCard = () => {
 
 <style scoped>
 .card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9fafb;
+  border-left: 5px solid #6a6c71;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
 }
 
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
 .card-header {
-  font-weight: bold;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 
 .delete-wrapper {
-  margin-top: 5px;
   align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  height: 32px;
+  width: 32px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.delete-wrapper:hover {
+  background-color: #f87171;
+}
+
+.delete-wrapper :deep(svg),
+.delete-wrapper ::v-deep svg {
+  fill: white;
+  width: 16px;
+  height: 16px;
 }
 
 .card-body {
-  margin-top: 10px;
-}
-
-.card-body div {
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
 }
 </style>
