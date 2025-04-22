@@ -8,11 +8,11 @@
           :title="column.title"
           :status="column.status"
           :cards="getCardsForColumn(column.status)"
-          @update-title="updateColumnTitle"
+          @update-column-title="updateColumnTitle"
           @add-card="addCard"
           @remove-column="removeColumn"
-      @remove-card="removeCard"
-      @updateCards="updateCards"
+          @remove-card="removeCard"
+          @update-cards="updateCards"
       />
       <AddButton @click="addColumn" />
     </div>
@@ -64,20 +64,25 @@ export default defineComponent({
     },
     addCard(status: string) {
       this.cards.push({
+        id: Date.now() + Math.random(),
         title: "Nouvelle carte",
         description: "",
         deadline: "2025-12-31",
         status: status
-      })
+      });
     },
-    removeCard({ status, card }: { status: string, card: any }) {
-      this.cards = this.cards.filter(c => !(c.status === status && c.title === card.title))
+    removeCard({ card }: { card: any }) {
+      this.cards = this.cards.filter(c => c.id !== card.id)
     },
     updateCards(status: string, updatedCards: any[]) {
-      this.cards = this.cards.filter(card => card.status !== status);
+      // Supprimer toutes les anciennes cartes de cette colonne
+      this.cards = this.cards.filter(card => card.status !== status)
+
+      // Ajouter les nouvelles cartes avec le bon statut
       updatedCards.forEach(card => {
-        this.cards.push(card);
-      });
+        card.status = status
+        this.cards.push(card)
+      })
     }
   }
 })
